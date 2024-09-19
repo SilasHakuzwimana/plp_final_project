@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .login-container {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 5px;
+        }
+        
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        a {
+            color: #007bff;
+        }
+        
+        a:hover {
+            color: #0056b3;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .dashboard-content {
+            padding: 20px;
+        }
+        
+        .overview {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .stats div {
+            flex-basis: 24%;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        h3 {
+            margin-bottom: 10px;
+        }
+        .inventory-container {
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MSME Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/customers">Customers</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-content">
+        <section class="overview">
+            <h2>Business Overview</h2>
+            <div class="stats">
+                <div>
+                    <h3>Total Revenue</h3>
+                    <p>$12,500</p>
+                </div>
+                <div>
+                    <h3>Total Orders</h3>
+                    <p>120</p>
+                </div>
+                <div>
+                    <h3>Inventory</h3>
+                    <p>500 items</p>
+                </div>
+                <div>
+                    <h3>Profit</h3>
+                    <p>$7,200</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

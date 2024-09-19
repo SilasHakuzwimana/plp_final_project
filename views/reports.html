@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <style>
+        .reports-container {
+            padding: 20px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 5px;
+        }
+        
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #138496;
+        }        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reports</h1>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/customers">Customers</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="reports-container">
+        <h2>Generate Reports</h2>
+        <form action="/generate-report" method="POST">
+            <label for="report-type">Report Type</label>
+            <select id="report-type" name="report-type">
+                <option value="sales">Sales</option>
+                <option value="inventory">Inventory</option>
+                <option value="expenses">Expenses</option>
+            </select>
+            
+            <label for="date-range">Select Date Range</label>
+            <input type="date" id="start-date" name="start-date" required>
+            <input type="date" id="end-date" name="end-date" required>
+            
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+</body>
+</html>

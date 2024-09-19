@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <style>
+        .customers-container {
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ffc107;
+            color: white;
+        }
+        
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customers</h1>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="customers-container">
+        <h2>Customer List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Total Purchases</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#001</td>
+                    <td>John Doe</td>
+                    <td>john@example.com</td>
+                    <td>(123) 456-7890</td>
+                    <td>$500</td>
+                    <td><button>View</button> <button>Contact</button></td>
+                </tr>
+                <!-- Repeat rows for other customers -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
