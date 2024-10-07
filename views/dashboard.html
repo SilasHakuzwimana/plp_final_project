@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Empowering MSMEs with a comprehensive, user-friendly financial management tool. Track expenses, manage invoices, and monitor your business performance all in one place.">
+    <meta name="keywords" content="MSME, Financial Management, Expense Tracker, Invoicing, Business Performance, Small Business, Web App">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,144 +15,119 @@
             margin: 0;
             padding: 0;
         }
-        
-        .login-container {
-            width: 300px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        label {
-            margin-bottom: 5px;
-        }
-        
-        input {
-            margin-bottom: 15px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-        }
-        
-        a {
-            color: #007bff;
-        }
-        
-        a:hover {
-            color: #0056b3;
-        }
+
         header {
             background-color: #007bff;
             padding: 10px;
             color: white;
             text-align: center;
         }
-        
+
         nav ul {
             list-style-type: none;
             padding: 0;
         }
-        
+
         nav ul li {
             display: inline;
             margin-right: 20px;
         }
-        
+
         nav ul li a {
             color: white;
             text-decoration: none;
         }
-        
+
         nav ul li a:hover {
             text-decoration: underline;
         }
-        
+
         .dashboard-content {
             padding: 20px;
         }
-        
-        .overview {
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
             background-color: #fff;
-            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .stats {
+
+        .user-profile img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .cards-container {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        
-        .stats div {
-            flex-basis: 24%;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        h3 {
-            margin-bottom: 10px;
-        }
-        .inventory-container {
+
+        .card {
+            background-color: #fff;
             padding: 20px;
-        }
-        
-        table {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+            max-width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
         }
-        
-        table, th, td {
-            border: 1px solid #ddd;
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #007bff;
         }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
+
+        .card p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #333;
         }
-        
-        th {
+
+        .card button {
+            padding: 10px 15px;
+            border: none;
             background-color: #007bff;
             color: white;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        
-        button {
-            padding: 5px 10px;
-            margin-right: 5px;
+
+        .card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>MSME Dashboard</h1>
         <nav>
             <ul>
+                <li><a href="/user-profile">Profile</a></li>
                 <li><a href="/inventory">Inventory</a></li>
                 <li><a href="/orders">Orders</a></li>
-                <li><a href="/customers">Customers</a></li>
+                <li><a href="/invoice">Generate Invoice</a></li>
+                <li><a href="/customers-list">Customers</a></li>
                 <li><a href="/reports">Reports</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
@@ -156,27 +135,70 @@
     </header>
 
     <div class="dashboard-content">
-        <section class="overview">
-            <h2>Business Overview</h2>
-            <div class="stats">
-                <div>
-                    <h3>Total Revenue</h3>
-                    <p>$12,500</p>
-                </div>
-                <div>
-                    <h3>Total Orders</h3>
-                    <p>120</p>
-                </div>
-                <div>
-                    <h3>Inventory</h3>
-                    <p>500 items</p>
-                </div>
-                <div>
-                    <h3>Profit</h3>
-                    <p>$7,200</p>
-                </div>
+        <!-- User Profile Section -->
+        <div class="user-profile" id="userProfile">
+            <img src="" alt="Profile Picture" id="profilePicture">
+            <div>
+                <h2 id="userName"></h2>
+                <p id="userEmail"></p>
             </div>
-        </section>
+        </div>
+
+        <!-- Cards Section for User Options -->
+        <div class="cards-container">
+            <div class="card">
+                <h3>Manage Inventory</h3>
+                <p>Track and manage your product inventory seamlessly.</p>
+                <button onclick="window.location.href='/inventory'">Go to Inventory</button>
+            </div>
+
+            <div class="card">
+                <h3>Orders</h3>
+                <p>View and manage your customer orders.</p>
+                <button onclick="window.location.href='/orders'">Go to Orders</button>
+            </div>
+
+            <div class="card">
+                <h3>Customers</h3>
+                <p>Manage your customers and their details.</p>
+                <button onclick="window.location.href='/customers-list'">Go to Customers</button>
+            </div>
+
+            <div class="card">
+                <h3>Generate Reports</h3>
+                <p>Analyze business performance with detailed reports.</p>
+                <button onclick="window.location.href='/reports'">Go to Reports</button>
+            </div>
+            <div class="card">
+                <h3>Generate Invoices</h3>
+                <p>Generate and send customized invoices to your client within your dashboard.</p>
+                <button onclick="window.location.href='/invoice'">Go to Invoices</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Fetch and display user details
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('/api/user/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user profile');
+                }
+                const user = await response.json();
+
+                // Update the profile picture, name, and email
+                document.getElementById('profilePicture').src = user.profile_picture || '/default-profile.png';
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userEmail').textContent = user.email;
+            } catch (error) {
+                console.error('Error fetching user profile:', error.message);
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = fetchUserProfile;
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Empowering MSMEs with a comprehensive, user-friendly financial management tool. Track expenses, manage invoices, and monitor your business performance all in one place.">
+    <meta name="keywords" content="MSME, Financial Management, Expense Tracker, Invoicing, Business Performance, Small Business, Web App">
+    <meta name="author" content="Infinity Technologies">
+    <title>MSME Financial Management - Empowering Small Businesses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .tagline {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        nav {
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 0 15px;
+            list-style: none;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .section p {
+            font-size: 1.1em;
+            color: #555;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .feature {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        .feature h3 {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .partners {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .partner-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .partner-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .section {
+                padding: 15px;
+            }
+            .partners {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .expense{
+            color: ffffff;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MSME Financial Management Web App</h1>
+        <p class="tagline">Empowering Micro, Small, and Medium Enterprises with Seamless Financial Management.</p>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Who We Are?</a></li>
+                <li><a href="#services">What We Offer?</a></li>
+                <li><a href="http://localhost:3000/index">Expense Tracking App</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <div id="home" class="section">
+            <h2>Why Choose Us?</h2>
+            <p>Micro, small, and medium enterprises (MSMEs) often face challenges in managing their finances efficiently. Manual processes, limited resources, and complex financial tools can slow business growth. Our web app is built specifically for MSMEs, providing simple, cost-effective financial management tools designed to help your business thrive.</p>
+        </div>
+
+        <div id="about" class="section">
+            <h2>About Us</h2>
+            <p>At our app, we believe in empowering businesses to take control of their financial health. Our mission is to simplify the way entrepreneurs manage their finances, providing intuitive tools that save time and improve decision-making.</p>
+            
+            <h3>Our Vision</h3>
+            <p>We envision a world where every business owner has the resources and insights they need to thrive. We are committed to creating innovative solutions that adapt to the evolving needs of modern businesses.</p>
+        
+            <h3>Our Values</h3>
+            <ul>
+                <li><strong>Integrity:</strong> We operate with transparency and honesty, ensuring our users can trust us with their financial information.</li>
+                <li><strong>Innovation:</strong> We strive to continuously improve our platform, integrating the latest technology to enhance user experience.</li>
+                <li><strong>Customer-Centric:</strong> Our users are at the heart of everything we do. We listen to feedback and tailor our services to meet their needs.</li>
+            </ul>
+        
+            <h2>Key Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Expense Tracker</h3>
+                    <p>Record and categorize all business expenses effortlessly. Stay on top of your spending with our easy-to-use tracking system, ensuring you never miss a detail.</p>
+                    <p>For more click on the link below to easily manage your expenses.</p>
+                    <nav>
+                        <ul>
+                            <li class="expense"><a href="http://localhost:3000/index">Expense Tracking App</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="feature">
+                    <h3>Invoicing</h3>
+                    <p>Create and manage professional invoices with customizable templates. Streamline your billing process and get paid faster with our intuitive invoicing tool.</p>
+                </div>
+                <div class="feature">
+                    <h3>Dashboard</h3>
+                    <p>Monitor your business’s financial health in real time with our comprehensive dashboard. Visualize your data with interactive charts and metrics that make sense at a glance.</p>
+                </div>
+                <div class="feature">
+                    <h3>Reports</h3>
+                    <p>Generate financial summaries and reports to track your business performance and profitability. Gain insights into your financial trends to make informed decisions.</p>
+                </div>
+            </div>
+        
+            <h2>Join Our Community</h2>
+            <p>When you choose us, you’re not just using software; you’re joining a community of like-minded entrepreneurs and business leaders. We offer support through:</p>
+            <ul>
+                <li><strong>Online Resources:</strong> Access a wealth of articles, guides, and webinars to help you maximize our tools.</li>
+                <li><strong>Community Forums:</strong> Engage with fellow users, share experiences, and learn best practices in our dedicated forums.</li>
+                <li><strong>Customer Support:</strong> Our dedicated support team is here to assist you every step of the way, ensuring you get the most out of our platform.</li>
+            </ul>
+        
+            <h2>Start Your Journey</h2>
+            <p>Join us today and take the first step toward financial clarity and growth. With [Your Company Name], managing your business finances has never been easier!</p>
+        </div>
+
+
+        <div id="partners" class="section">
+            <h2>Partners</h2>
+            <p>We collaborate with various organizations to empower MSMEs:</p>
+            <div class="partners">
+                <div class="partner-card">
+                    <img src="https://rdb.rw/wp-content/uploads/2022/12/rdb-251X55.jpg" alt="Rwanda Development Board Logo">
+                    <h3>Rwanda Development Board (RDB)</h3>
+                    <p>Provides support through business registration, investment promotion, and capacity building for MSMEs.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="https://www.brd.rw/wp-content/uploads/2024/04/BRD-New-Logo.svg" alt="Development Bank of Rwanda Logo">
+                    <h3>Development Bank of Rwanda (BRD)</h3>
+                    <p>Offers financial products specifically tailored for MSMEs, including loans and guarantees.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="https://www.rica.gov.rw/index.php?eID=dumpFile&t=f&f=23572&token=3b24cbdba95d46e1bbb2d06ad4959bb49789cb36" alt="Rwanda Cooperative Agency Logo">
+                    <h3>Rwanda Cooperative Agency (RCA)</h3>
+                    <p>Promotes the establishment and growth of cooperatives, providing necessary support and resources.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="https://www.nyc.gov.rw/index.php?eID=dumpFile&t=f&f=89896&token=9582b8c2061a83806d8538d424db600a88102079" alt="National Youth Council Logo">
+                    <h3>National Youth Council (NYC)</h3>
+                    <p>Facilitates entrepreneurship among youth, providing training and funding opportunities for young MSME entrepreneurs.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAMAAzAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAACAQMABQYEB//EAEsQAAIBAwEEBAoCDggHAAAAAAABAgMEEQUGEiExE0FRYQcUInGBkZOx0dJVoRUWIzJCUlNUYpKUpMHhFyQzNDWD8PE3RWNygpWi/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEEBQID/8QAKREBAAICAgEBBwUBAAAAAAAAAAECAxEEMSEiEiNBUWGBoQUUMjNxE//aAAwDAQACEQMRAD8A+iJCSMSEkVEJE4JwJIApEpCSJSAKRKQsE4AODMDwZgA4MwLBmABgzA8EYADRGCzBGAA0RgbRDQFeCGhtENAVtBwWtBa4gVtBaLGgtAV4IwNoOAPUkSkSkJICMCSMxwEkBiRKROCUgISJSJSJSCjgnBOCcAHBmBYMwAcEYHgxoCtohosaIaAraIaLGgtBFbRDQ2iGgA0FobRDQFeAtFjQGgA0EbQQPWkJIxEoDMCSMSEkBmCcEk4CoSJwLBOADgnBOCcEBwZgeDMADBDQ2iMADBDRZghoCtohobRGOBRW0FosaCwitoLRYwsANBaG0BoANBaY2QB6khJGJAuKXTW1Wknhzg4prqeOBYjck+FqEcTs/tpCK8T11uFanJw8Zxwljh5S6n3+47S3r0bmG/b1YVYdThJM93xWpOph8sWemSPTKxInBMV2kpceR8n2YkLBOOonABwTgWCcADBmB4MwAMEYHgxoCtohlmAtAVtEMYWgA0FosYWUVtBa4jaC0EBoDRY0FoCtoI2ggetCRCEgr5bt7pT07WpXFOOLe7zUi+pT/Cj/AB/2Odo16tvJSoVJ0n2wk0fatW0y21exnaXccwlyl1wfaj5ZruzGpaNOTqUZV7bPkV6SbTXf1p/6ydfjcit6xW3wcDmcW+O/t06VW+0+uW39nqddrsqNTX15Nra7f65Rx0qtbhdfSUmm/wBVr3HKZWcLmjMZ5mmcGO3cQxxyc1erS+kad4SLWpJR1GxqUO2dKXSL1YT952Gm6lZapQ6awuadaHXuvivOuo+D47z06ffXWnXMbiyrSpVo9a5PzrrRlycCkx6O23D+p3rOr+Yfe8E4NJsjtDR2hsHPCp3VFqNelnl2SXc8e83uDlWpNJ1Lt0vW9far0jBmBmYPL2rwRgswQ0BWFoswFoCthZY0FoAMDRY0BoCthZY0BooDQWhtBYRW0HA2ED1oSChoKUTj9b2jutmtoKlOvTdxp9zBVYxz5UOqWH51yOxRz22+hS1rSYu2jm8tm50or8NY4x9PD0o+3H9mL6t1LPyYvOPdO4eSN7sXrqTru0p1pcMVkqM15nyfoZFbwe6LcxUrO5uKSfJwqKafrTPmEubTWGuDXYyaNSdvLeoVJ0pfjU5OL9aOlHGtXzS7jfvKW/sxxLuLvwaXkcuy1CjU7IVoOH1rPuOX1fQdU0hr7IWdSlT5KqsSg/8AyXD14LrPajXLPHQ6lXlH8Wq+kz6+J1Gk+ERVF4vrtpCdKSxKrSjlY749aLvkU79Ufk1xMniN1n8OZ2R1WWja9bXDeKM30VZZ5xb/AIcGfXdpr2vp+z99e2jiqtKlvQlJZWcr1nC7SbGUbu0WrbLyjWoTW+7eDzw7YP8AgdDqN073wZ1bmeVKVit5Pg01j4GPlzXJq8dt/Bi+HeO3Tl7DajbLVYzenUlXUGt50rePknr+yPhB/Mav7PH4nq8EX9hqfDPlw9xsf6SNCzhQveH/AEl8THPbfHTSfZLwg/mNb9nj8SzQNttTjrENO16gszmqb+59HOlJ8sr/AFzNu/CRoaX3l77FfE5SVZbV7fUa9lRnGjvU5S3lxUYJZk8cuSQHv2o2o1yy2kuNO06opRUoxp040VOTbS4LrfE8v2c25/ML7/10/gTrH/FKjz/vlH3RPp7EkRMvls9odtKPlVbO6iv09Pkl7jY6Ft+qteNDWqUKUZPHjEOEYv8AST5Lv6jv2cJ4TNIt3YQ1OnSjCtCooVJJY30+HHzCJ2TEw3G2d/e6Zo/T6c8V+livvN7h18Dhvtu2k/G/dzq9D2ihY7F2V9fKpNU34u+j4y4ScV9SQX4QtK/JXn6q+IjZLlftt2j/AB/3cz7bNo/xv3c6d+EHSvyV3+qviQ/CBpn5K7/VXxL5T7tXs1tBrV9rVvbXr+4T3t77lu8k3zO4fI0el7X2Oq31OzoU7lVKmcOceHBZN7LBJe4BgY2Eg9aEgoSCmhrvAhx5kHJbQ6Loeq6vK2uKjsdSqRUqdRYSrp+fg31dporrwb6nDPi13bVexTzA63bLZ77O6cug3Ve0Mzot8FLti/P7z5xbbTbQaVN28b+4puk8SpV4qe73eUs/WdLjzktT3dvtLj8uuKl/eU8fOHouNhtoaC/uUa3dSqJ+/Bpb7Tr3T57t9aV7fjjNSDSb7nyZ0lLwh6/B+UrKov0qLWfVJG803wi2d1/V9csI06dTyZTj5cH/AN0X/M+835FPM13/AIy/8uJfxW0xP1c/sBtDPSNUja1qn9RupKMk+VOb5SX1Z/kfWL7S7a/0+4sKsHGhXTU1T4Pnl4OC2i2Jtbu0ep7Lyjhrf6CnLMZr9B9T7vcdHKre6xsC5Wamr6raqKUZbslNcGs9T4GLk2peYvV0uHXJjicd+vhP0bPQdnrDQYVVp8Ksemac9+e9yNT/AEd7P/kLj2zOJ+13bXtv/wBrfxM+13bXtv8A9rfxMum7f0drLwd6A00qVys9arM5KwUdmfCDGw064nUtpzjSqxbzlSWcPtabPM9ndtMcfH2uzxt/E2+yOw+oW+rUdR1ZQpxoS6SNPf3pTn39naVHWV9l9Mr6zHVZ06ru41I1E1UeMx5cPQjbyTzyPn21elbVXOvXNXS53sbRuPRqndShHks4We01H2E2266uo/tsvmJpdvquH2M+feEvWqEqENIoVIznvqpX3XlQxyT7zUvQdtKvkTnfuL5qd5Jr3mz0LwfVI3EK+uSpTpxefF6cs77/AEn2ebmIjSTO/EPJf2lS08GdlGqsVKtZVmscUpSbj/8AOBbHbL6ZrGjO6ven6VVpQ8iphYWMdXedPtzp11qWh+L2NHpanSxe6muSDsPp91pmhu3vaPRVennLd4cnjsLvwa8vK9hNF7Lr238gvYXRey69svgdUytnny9ahoNP2U0zTLynd2qr9LTzu79TK4rHZ3m6fMbAwaGQBsDA9aEgpiQU0NATGiBrmafXtl9N11b11B07hLCuKXCfp6n6TboaZ6ra1J3WXm9KXjVofL77wb6pSbdnc29zHqUvucn/AA+s52/0DV9NbV3p9eEV+Eo70fWj7omsC4NY6uw1052Svcbc+/6Zit/GdPjewu0lXRNRhSrVG7CvPdqw5qEnykuzv7V6z7JOnmhKNCp0W9xVSEU8Ptw1g0ut7JaRrMJdPbRpVmuFaj5Ml5+p+Zmx0u2rUNKpWd7NVakKfRyqLlNLhn0o+fIyUy+qviX24uLJh9NvMfBKsr1/84uPY0vlIdneJZlrNdLtdGl8pMbW4p43KucJNuVR+U8pvPDrw+PeZ4tXdCKnONSpvRk96bxwjh8cPrz1GfUNW5HxK9+mLh/5NL5QuzvPpeu/8il8ovFrxU4U1WilFJZU2t7lz4dz/kGVpdqklG5e9jysTazyxjg8ci6Nyh2d79LV/YUvlA7O8x/i1b2FL5R+LXe/l18x308Oo+Xq+rh5wXFtdzqVJ0627n73FRptceHJ45rlnPcNQbkfErz6WrewpfKB2l3j/Fa3sKXyljt7rp953LdNVE1FSx5Oevhx61jzFMbe7gqUOlTSjhtVGlnHB8urs6+4ag3LPFLz6UrewpfKF2l59KVvYUvlHO2uHFYuJb26lLy3xeHnq4dQY29dbjnVcmmnJOb443e7ufV1jUG5Vu2u3nGq1eHB/caXwC7W8+lKvsafyllS2q7s3SqYqSlz3t3Cznml5uaYVbVluOdV53fLxN8X5XL0teouo+ZuUUqFxTqKVS/qVYrnB0oJP0pFz4dnoPPRoV41N6tWcopt4UufoxwPRIkrAsDEwkHqQ0VpjTCmhorTGmQWJiTK0xoBoSBklMCxMWe8ryTkCzJmQZMyAgtkZIyBjYWzGwsCGwslhbAhgYmwNgFhZLYWygsLEwMILCS2ED0pjTK0NBTTEmBCTILExJlaYsgWIlMCZOQLMk5K8k5AsyZkryZkBNkZIyRkCchbMyFsDGwtkhbAhsLZLYGBDYWSwsqIYGJgYEMAmAD0oSK0JMC3JKYEychViYslaYskFiZOQJk5AeTMgyTkB5MyDJmQFkxsOSMgLIWzGwtgZkhsjJDYGMLZjYWyjGFmNhzxCMYGSwMDGAlhA9CEmVpiTAaY0yvPAlMCzIsleSchViZOStMSYDyTkryTkB5MyDJmQFkhsjJGQFkhsLZDYE5IyQ2Q2BjZDZDZDYRjYGY2Q2BDCyWwtgQwktgYH//Z" alt="Business Development Fund Logo">
+                    <h3>Business Development Fund (BDF)</h3>
+                    <p>Offers financial support and guarantees to MSMEs to enhance their access to credit.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="https://www.afdb.org/sites/default/files/60th-logo-2en.png" alt="African Development Bank Logo">
+                    <h3>African Development Bank (AfDB)</h3>
+                    <p>Supports MSME development in Rwanda, focusing on capacity building and access to finance.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="https://www.afdb.org/sites/default/files/60th-logo-2en.png" alt="Private Sector Federation Logo">
+                    <h3>Private Sector Federation (PSF)</h3>
+                    <p>Advocates for the interests of the private sector, providing networking and capacity-building opportunities.</p>
+                </div>
+                <div class="partner-card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKsAAACUCAMAAADbGilTAAAA6lBMVEX///8pquH///0Gc8j///spq+ApquMCTbL///kprN70+PkIccj8//9zn8wAarW5y+L//P8AZLIppuIGdMYAod8Apd2qw+Hd6PPS4O/N5vXO6/aZ0PAai9QmouESgs3j9fkhldsAXrAveL2kwNkjm97A1elBf74AVLnZ7/zT8far2PB5yepQtd5HsOZUtuV7xOy83u86re+Kzum+5e9nuuNfweie1eZbtvEVf9Tu9P4XjM0FX7sJaceu4/eBp8dNhb6bt9pimdJKjc+LrddZk8Mjb60CSLSMu+GVsszQ3eIIZKUAUaVaptuayPJjCL6bAAAMAklEQVR4nO1ba1fiyBZNiqqQFEUgBREkhCiKjyCBUXR8dKs9Pqan597//3fuPhXAx9je+0FDr3Wze2krjc3mZJ9d+1RFyypRokSJEiVKlChRokSJEiVKlChRokSJEiX+z8A4402LuYxA3zeb66b0UyiLMTdnCqrmy3VT+ikUd11Lys4mcJAoDqh1c/op2GE6PsomthBikmXT9GDdhN4AV03GktlYtEPHfoLTDsezhCnIeN0Mn4B26h1njnY8z37OVdtOeBQdoOfWzfAJ7GKqheMIz3teVoGHPB2L38bJL8GV4Y+VjLUGS084WiwqajsEcBee7Wl9LMkY1stYWsp1U69tvwBaC8SprA6+oo92dsI5WytZBec/PNX2azg6brfjdhiG9Nmzhec4kcWZWiPZJpezOPReFdV2snGUnhiRqsOv0TxzYttrZweutSauTaYUvzh2bOGsNCo8oWPtHE0jQjrrJRIqVckMJmF7R711SVa5qOpcLxsfPQSNxv3LXe2IMNShbre1wHqQuBAqT2bzONaH7no6rKnczkQ8Nyh92TrfQj/Zhj+5gKC/JlGHWeiswyNPb3JrHZpVvJcJe1VWO+5Xan3He2KPDnOgDyFCHZ2YEDabiJ6rCo4InDdddjgBFQFjhRRtDaaDeKXd5RswhoVPdiS55bqdU08WvYY1UaQDWHxOCY6/26rV+v/0rqcSe1nKLFex6LTo5IWXTU69XJi47FTUyuXLLPAPxw0jiYvB0jNVcHdxNcbVz7Up4vPal8qWEO9QtfHGwnnCcUFmPVZcaRHwmiyKjTRJq6Baq+2+YOqRiG1juXbuuuZrr+PC6BJZWF3h7ZzP8iqCqRcPKtCq/SK3kt0awzLP0PAD87700SayrFVcRGQI1klm+psaXFNVB68MwLZDrUNPTCYwLGQvE7+EF2PpggyKzDBcHYf5RUY8BdVKy1ziJ4iwPYlmB4mUMjmYnWULQcDgwiPp0vstiClzra/hqmP6FbjV1kKsAi4m7NAZn7jP2XDWi7yQjNgT7VOF1iqsrlxmS64Cvoo1YFlTytahHfWUxZ9vDGCctZI0C7W5ECkvbjVg/Ex7yzoS1dbuyljFb+HUREHuPvsJ10UpXZl6Rt+TpKhJEa+aTBZ1FPagVmvVBkvq0OzRjHGIFLiQyuiS+kg1my63eIJU7mFNKCi9QGwsXQxVntitEGJnyVVPL5L0eDqFX2VzxO0ewrV6KqKSKX5Ii4IKC3NEZjXcHFpagUHe5ZRfxydjkEF2tUNbY06c/E6RZVlGMGSzUItwXIxnIYietO3FZL1bA1WYQM7VxkAQo7YarGk29KjV2vE0WRURIuYHeKKWhZBFjaY6N37h9GGtlRplVFins3VJrkTTFhkXsiuegY9QoLb5riEuCuIAFolZIU6ARWvlVzGcFS4gcpcfDLT9au3Kyw3/T6xlbVWTpY4zLYApWeVZvGSxZcqarwPtViX2XnOl3QxB8UbPVnXE3D2Os6QQrmq6ojIwXGNBJSbOz5OWE7ZzGH0InS5+nhygJyabRXBlycTUVJglC+ba0lg4oYaBka2xJHzvZdOz2WZvlo6zsG22j766RgZmDznSaSFG0FutUZcwAeKKqrUqy/wKVo72zhJuhmuXc5VER1Bz7M1WmrWSdlQEVTfNNQmCA8MVi5Ye1CoDM2tR4zvTGSxJYVBRTczlMA41Q4LURwfLZVe582kRk4Eb6XwdoGmgQgus42whFOwu1BqGKTkUN1Tp+ACxhVsy1XZ4uqwrU2kmC+Aqx84iUZn1FVwpv+Az2NMe0fzgLSVyJj29e4YMY+KXe3BUCNd5bq+O2CKuGF4E5Zd87RL2XL610tPc0pmKOOFGs4xfHBVhWkm2NNG+WWArfY0RBg1Gq1Q8T9y3ykq7Ce7FaZhyy2hWyXEhXCfLwWqw4NqvtSrnwnA9Omyqt8ii0xR3LzwvsYwGJD++KITrMv61iCtokmgvqbG8yXsnRGj8JM6XLzTeWTF1XXE1vZU3mAm03vhNASzQxOJ6PDWZBRH4pIjeesW1UrsC1YpZH4R8b+RrwsWSSR5lYQtF+Cu45ml1yXWfZkOKqk7qvveDjPZrjw+Ja7Og/YEkE4t9gZq5/F/2a+RbQntZx22+Xy3mHnwtguMScr6YtRzDtXJVJa6YAcIp9cy7P4t4cFIQTQMVhc/rWtmvfqlUMHM7zuy/71Ix/q5MPho8XXLN9VqtXiFlI7NM5PLQwmwPmK/V6iH8jYeUNJM4V/m7wmXA4CglPfQZEuazfC3wHOOv4LrfatH25nz1DLlzveOaSRvz1ej6uru490Hu1G/29m7qI7Uor6uszu23P25u6juJ9QmbMewgyzOhPjfrVrVaJa6iHS1fislv2/6OCSnMcne2txtGHHLHDwLf/+H72zejvLBK3m37hFYQXH/CaMuTbDGkDBZ1rdbA1Y43V9OfrPv+sGuUoPiO7zfM+TIe9B/qd3f1YeAHI/Pkzn3ND27qd/W9wK99+/hVV7HpYobpL+t61Yo9J7xYlsVw9f9A4KItlw3iCqob235w25FKyc6tfy+ZggD2fP+mC7nKTmPo+3WpPlgGive0SX92ngnBdR8+4IRP1kpcH/x7RR224Gp1H4Z+I28obnUTyNe1dq5AmuZafHT3/O3GR+90cu5ODFfMgwsN7NOs5b3gOhy2ftzS1lfOlVm3gX+bU6HhhtHU0Nl72OvQzSUYIrg1CoL7j+aKV4nadF6BGWZR18erXduePL0OuO7d4qKOyLgMVyXv/WEn33Bj5mAerTcaBteKdo3xPShDEAn/8C25RHi0+SYg2BpxrVaRByYv6vrQHaGDui5vmt6yOkO/TrV0yU2ldCUc6jZXRw5mffeDnY/f7lbHmo6AMMTUjAaq1XNhT57WV9JAl10H/s0FRGkYdf3gT7OddXtzjz839x2m7vyHkbV8h5w1/KVKPhKMjowpFZJr7RPXK0dMnrZZietfDJcdrc12AsM1IK54Rn07IJeFIOhZoxU5zka+//2jmdJ/PM43YPtfKi3i+viIhetVXS3WuaGrukFcWTcgIugh1PX+fuijqVBX/4krsxp+sPEZXKW5wUHEyIRXRgQ1ry1fc2Xdob/9l9EAh17vnybcO3BltErsrI7nlXuNFeLjzz5pFz6ks00sXa1aLoKwvfmaq8UaQWuv/sP4wA3JIo8IS6646PerN+jKoR8kn7Ar61ryFGlLeHFlwbXaerZDlXPlSN5/YgEbkgbc7yRe86/QCnHFGHP/AI0sAQOuf8YdG1xZyRFU4Nl9CtuE/a3x8l/Zoq6KK7MqgKtrdfb84LpjLrHq3BNXRDAEl1H+BiRsOOhan7PbzU4cc89Vq/XFcK1+8RKVlwUMg4du7ka49n5AOcsFsWDv+6jbHd3hat8nlKrqcIR6o9vtNr61fiCafQZR4mphPhCCbsfIRbA/SHmerJuy/oM0YJ52UXn40aCDcZY+ICRQmcH+xlC15DUZ2HBIDz6Tw0dDKTcK0V20IBDVx+p+nbumsFzWK3td00ToptGw1UAzouEv7v4YglswvNmgSEBbiGz0bWhS7V69+3lHtGChxm3HobPjXATVWsTyYZrhquYNTimlM+pQiECuUp3GxsZGYySJu5XfNSm7eGyn0VWW+6lHM2pMZqAvr3IVVFsnXNEtuz95d2u9TZPziG7E9La2q7kMdr9Sgv4JFO0WvnlXThE3RNK2lBcK4W3lvlXdb0dvbr8agFByIv+5MuXC/Vym+askGd35Gl89GrJX/VNzLPyyutCqwjigTqI3NrwW54lFgLlpFtLZfNWw/fs8jiSi87MtGE5DCnPl7LSYw8Kfg264mEIIzmVe2sda//fjw+fzM7hy2Usn8831dVYOcnnWi6Da+HyfavuISXFyGs1We8EqmUXzWB8r6xf5rQh1nDkiHhj3eqxeDcJ22/a8DLDDdqyzsyK2hv9HoJU3o/Fkd1Ahuo+P27XB5W6stQ7bTjZOL5j76/wOD5wT+SrppdN/9c+v9vcfSbxXlcHuHGqQ9NtGvw5X5HpmRn0GxptpunF79+/GbDMxJsVddOAvItYSJUqUKFGiRIkSJUqUKFGiRIkSJUqUKFGiePwH+qD3MKeaZ/kAAAAASUVORK5CYII=" alt="Local NGOs and Incubators Logo">
+                    <h3>Local NGOs and Incubators</h3>
+                    <p>Provide training, mentorship, and funding support to MSMEs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="services" class="section">
+            <h2>What You Can Do with Our App</h2>
+            <p>Our platform empowers MSMEs to:</p>
+            <ul>
+                <li>Efficiently track daily expenses and income.</li>
+                <li>Manage and customize invoices for clients.</li>
+                <li>Gain insights into financial health through real-time dashboards.</li>
+                <li>Generate detailed financial reports to aid decision-making.</li>
+                <li>Access data from anywhere with our secure cloud-based platform.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Get Started Today</h2>
+            <p>Ready to take control of your business finances? Sign up now and start managing your expenses, invoices, and reports more efficiently with our MSME Financial Management Web App. Let’s help your business grow!</p>
+        </div>
+
+        <div class="section">
+            <h2>Find Us</h2>
+            <div style="width: 100%; height: 300px; overflow: hidden;">
+                <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997538.5672441097!2d29.87388851864195!3d-1.9705796655140525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6b0f3e35033%3A0xd07c7f44fa69e2d0!2sKigali!5e0!3m2!1sen!2srw!4v1696283161844!5m2!1sen!2srw"
+                width="100%" height="300" style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© <span id="year"></span> MSME Financial Management | <a href="mailto:hakusilas@gmail.com">Contact Us</a> | Phone: +250 783 749 019</p>
+    </footer>
+    <script>
+        // Get the current year and display it in the footer
+        var year = new Date().getFullYear();
+        document.getElementById("year").innerHTML = year;
+    </script>
+</body>
+</html>

@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Empowering MSMEs with a comprehensive, user-friendly financial management tool. Track expenses, manage invoices, and monitor your business performance all in one place.">
+    <meta name="keywords" content="MSME, Financial Management, Expense Tracker, Invoicing, Business Performance, Small Business, Web App">
     <title>Inventory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,53 +15,6 @@
             padding: 0;
         }
         
-        .login-container {
-            width: 300px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        label {
-            margin-bottom: 5px;
-        }
-        
-        input {
-            margin-bottom: 15px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-        }
-        
-        a {
-            color: #007bff;
-        }
-        
-        a:hover {
-            color: #0056b3;
-        }
         header {
             background-color: #007bff;
             padding: 10px;
@@ -80,41 +36,19 @@
             color: white;
             text-decoration: none;
         }
-        
+
         nav ul li a:hover {
             text-decoration: underline;
         }
-        
-        .dashboard-content {
-            padding: 20px;
-        }
-        
-        .overview {
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .stats div {
-            flex-basis: 24%;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        h3 {
-            margin-bottom: 10px;
-        }
+
         .inventory-container {
             padding: 20px;
         }
-        
+
+        .inventory-container h2 {
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -138,7 +72,53 @@
         button {
             padding: 5px 10px;
             margin-right: 5px;
-        }        
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.edit {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .add-product {
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .form-container input, .form-container select {
+            padding: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -150,13 +130,33 @@
                 <li><a href="/orders">Orders</a></li>
                 <li><a href="/customers">Customers</a></li>
                 <li><a href="/reports">Reports</a></li>
-                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="inventory-container">
         <h2>Product List</h2>
+            <div class="form-container">
+                <form autocomplete="on">
+                    <h3>Add New Product</h3>
+                        <label for="product_name">
+                            <input type="text" id="productName" placeholder="Product name" required>
+                        </label>
+                        <label for="category">
+                            <input type="text" id="category" placeholder="Category name" required>
+                        </label>
+                        <label for="price">
+                            <input type="number" id="price" placeholder="Price" required>
+                        </label>
+                        <label for="stock number">
+                            <input type="number" id="stock" placeholder="Stock number" required>
+                        </label>
+                        <label for="description">
+                            <input type="text" id="description" name="description" placeholder="Description">
+                        </label>
+                        <button type="button" onclick="addProduct()" id="submitButton">Add Product</button>
+                </form>
+            </div>
         <table>
             <thead>
                 <tr>
@@ -164,20 +164,180 @@
                     <th>Category</th>
                     <th>Price</th>
                     <th>Stock</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Product 1</td>
-                    <td>Category A</td>
-                    <td>$10</td>
-                    <td>50</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                </tr>
-                <!-- Repeat rows for other products -->
+            <tbody id="productTableBody">
+                <!-- Product rows will be dynamically added here -->
             </tbody>
         </table>
     </div>
+
+    <script>
+        let products = [];
+        let editingIndex = -1;
+    
+        // Fetch products from the backend
+        async function fetchProducts() {
+            try {
+                const response = await fetch('/api/products');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+                products = await response.json();
+                renderProducts();
+            } catch (error) {
+                console.error('Error fetching products:', error.message);
+            }
+        }
+    
+        // Function to render products in the table
+        function renderProducts() {
+            const tableBody = document.getElementById('productTableBody');
+            tableBody.innerHTML = '';
+    
+            products.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price}</td>
+                    <td>${product.stock}</td>
+                    <td>${product.description}</td>
+                    <td>
+                        <button class="edit" onclick="editProduct(${index})">Edit</button>
+                        <button class="delete" onclick="deleteProduct(${product.id}, ${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    
+        // Function to delete a product
+        async function deleteProduct(id, index) {
+            try {
+                const response = await fetch(`/api/products/${id}`, {
+                    method: 'DELETE',
+                });
+    
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage); // Handle response errors
+                }
+    
+                console.log('Product deleted successfully');
+                products.splice(index, 1); // Remove the product from the products array
+                renderProducts(); // Refresh the table after deletion
+            } catch (error) {
+                console.error('Error deleting product:', error.message);
+            }
+        }
+    
+        // Function to edit a product (prefill the form for editing)
+        function editProduct(index) {
+            const product = products[index];
+            document.getElementById('productName').value = product.name;
+            document.getElementById('category').value = product.category;
+            document.getElementById('price').value = product.price;
+            document.getElementById('stock').value = product.stock;
+            document.getElementById('description').value = product.description;
+    
+            editingIndex = index; // Set the index of the product being edited
+    
+            // Change button text and onclick function to update
+            const submitButton = document.getElementById('submitButton');
+            submitButton.textContent = 'Update Product';
+            submitButton.onclick = updateProduct;
+        }
+    
+        // Function to update an existing product
+        async function updateProduct() {
+            if (editingIndex === -1) return; // Ensure an edit is in progress
+    
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('category').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const stock = parseInt(document.getElementById('stock').value);
+            const description = document.getElementById('description').value;
+    
+            const productId = products[editingIndex].id; // Get the ID of the product being edited
+    
+            const updatedProduct = { name, category, price, stock, description };
+    
+            try {
+                const response = await fetch(`/api/products/${productId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedProduct)
+                });
+    
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+    
+                console.log('Product updated successfully');
+                products[editingIndex] = updatedProduct; // Update the product in the array
+                renderProducts(); // Re-render the product table
+                clearInputs(); // Clear the input fields
+                editingIndex = -1; // Reset the editing index
+    
+                // Revert button text and functionality back to adding products
+                const submitButton = document.getElementById('submitButton');
+                submitButton.textContent = 'Add Product';
+                submitButton.onclick = addProduct;
+            } catch (error) {
+                console.error('Error updating product:', error.message);
+            }
+        }
+    
+        // Function to add a new product
+        async function addProduct() {
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('category').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const stock = parseInt(document.getElementById('stock').value);
+            const description = document.getElementById('description').value;
+    
+            const newProduct = { name, category, price, stock, description };
+    
+            try {
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newProduct)
+                });
+    
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+    
+                console.log('Product added successfully');
+                products.push(newProduct); // Add the new product to the products array
+                renderProducts();
+                clearInputs();
+            } catch (error) {
+                console.error('Error adding product:', error.message);
+            }
+        }
+    
+        // Function to clear the form inputs
+        function clearInputs() {
+            document.getElementById('productName').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('stock').value = '';
+            document.getElementById('description').value = '';
+        }
+    
+        // Fetch products when the page loads
+        window.onload = fetchProducts;
+    </script>
 </body>
 </html>

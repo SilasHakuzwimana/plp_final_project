@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            margin: 0;
+            font-size: 40px;
+        }
+        
+        nav {
+            margin-top: 10px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        h1 {
+            color: #28a745;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customers</h1>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/customers">Customers</a></li>
+                <li><a href="/reports">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Customers List</h1>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody id="customersTableBody">
+                <!-- Customer data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchCustomers() {
+            try {
+                const response = await fetch('/api/customers');
+                if (!response.ok) throw new Error('Failed to fetch customers');
+    
+                const customers = await response.json();
+                const customersTableBody = document.getElementById('customersTableBody');
+    
+                // Clear existing rows
+                customersTableBody.innerHTML = '';
+    
+                // Populate table with customer data
+                customers.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.id}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.email}</td>
+                        <td>${customer.role}</td>
+                        <td>${new Date(customer.created_at).toLocaleDateString()}</td>
+                    `;
+                    customersTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching customers:', error.message);
+            }
+        }
+    
+        window.onload = fetchCustomers; // Fetch customers when the page loads
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

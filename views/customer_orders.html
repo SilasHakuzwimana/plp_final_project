@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <style>
+        /* Same styles as before */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .customers-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-profile img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Modal Styles */
+        #orderModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+        }
+    
+        /* Form heading */
+        #orderModal h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+            text-align: center;
+        }
+    
+        /* Style for form inputs */
+        #orderForm input[type="text"],
+        #orderForm input[type="number"],
+        #orderForm input[type="date"],
+        #orderForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        /* Style for the text area */
+        #orderForm textarea {
+            height: 100px;
+        }
+    
+        /* Style for buttons */
+        #orderForm button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+    
+        #orderForm button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    
+        /* Modal background overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="http://localhost:5000/customers">Home</a></li>
+                <li><a href="/customer-orders">Manage Orders</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="customers-container">
+        <div class="user-profile" id="userProfile">
+            <img src="" alt="Profile Picture" id="profilePicture" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 15px;">
+            <div>
+                <h2 id="userName"></h2>
+                <p id="userEmail"></p>
+            </div>
+        </div>
+
+        <h2>Order List</h2>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Item Name</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Orders will be loaded here -->
+            </tbody>
+        </table>
+        <button onclick="openOrderModal()">Add Order</button>
+    </div>
+
+    <!-- Modal for adding/editing order -->
+    <div id="orderModal">
+        <h2 id="modalTitle">Add Order</h2>
+        <form id="orderForm">
+            <input type="hidden" id="orderId" name="orderId">
+
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" name="itemName" required>
+
+            <label for="pricePerItem">Price Per Item</label>
+            <input type="number" id="pricePerItem" name="pricePerItem" step="0.01" required>
+
+            <label for="orderDate">Order Date</label>
+            <input type="date" id="orderDate" name="orderDate" required>
+
+            <label for="totalAmount">Total Amount</label>
+            <input type="number" id="totalAmount" name="totalAmount" required>
+
+            <label for="orderDescription">Order Description</label>
+            <textarea id="orderDescription" name="orderDescription" required></textarea>
+
+            <button type="submit" id="submitButton">Save Order</button>
+            <button type="button" onclick="closeOrderModal()">Cancel</button>
+        </form>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script>
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('/api/user/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user profile');
+                }
+                const user = await response.json();
+                document.getElementById('profilePicture').src = user.profile_picture || '/default-profile.png';
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userEmail').textContent = user.email;
+            } catch (error) {
+                console.error('Error fetching user profile:', error.message);
+            }
+        }
+
+        async function loadOrders() {
+            try {
+                const response = await fetch('/api/orders');
+                const orders = await response.json();
+                const tableBody = document.querySelector('#ordersTable tbody');
+                tableBody.innerHTML = '';
+
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.customer_name}</td>
+                        <td>${order.itemName}</td>
+                        <td>${new Date(order.order_date).toLocaleDateString()}</td>
+                        <td>$${order.total_amount}</td>
+                        <td>
+                            <button onclick="editOrder(${order.id})"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading orders:', error.message);
+            }
+        }
+
+        function openOrderModal(order = null) {
+            if (order) {
+                // Editing an existing order
+                document.getElementById('orderId').value = order.id;
+                document.getElementById('itemName').value = order.itemName;
+                document.getElementById('pricePerItem').value = order.pricePerItem;
+                document.getElementById('orderDate').value = new Date(order.order_date).toISOString().split('T')[0];
+                document.getElementById('totalAmount').value = order.total_amount;
+                document.getElementById('orderDescription').value = order.orderDescription;
+
+                document.getElementById('modalTitle').textContent = 'Update Order';
+                document.getElementById('submitButton').textContent = 'Update Order';
+            } else {
+                // Adding a new order
+                document.getElementById('orderForm').reset();
+                document.getElementById('orderId').value = '';
+                document.getElementById('modalTitle').textContent = 'Add Order';
+                document.getElementById('submitButton').textContent = 'Save Order';
+            }
+
+            document.getElementById('modalOverlay').style.display = 'block';
+            document.getElementById('orderModal').style.display = 'block';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const orderId = document.getElementById('orderId').value;
+            const method = orderId ? 'PUT' : 'POST';
+            const url = orderId ? `/api/orders/${orderId}` : '/api/orders';
+
+            const orderData = {
+                itemName: document.getElementById('itemName').value,
+                pricePerItem: document.getElementById('pricePerItem').value,
+                orderDate: document.getElementById('orderDate').value,
+                totalAmount: document.getElementById('totalAmount').value,
+                orderDescription: document.getElementById('orderDescription').value,
+            };
+
+            try {
+                await fetch(url, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData),
+                });
+                closeOrderModal();
+                loadOrders();
+            } catch (error) {
+                console.error('Error saving order:', error.message);
+            }
+        });
+
+        async function editOrder(orderId) {
+            try {
+                const response = await fetch(`/api/orders/${orderId}`);
+                if (!response.ok) throw new Error('Failed to fetch order details');
+                const order = await response.json();
+
+                openOrderModal(order);
+            } catch (error) {
+                console.error('Error fetching order:', error.message);
+            }
+        }
+
+        async function deleteOrder(orderId) {
+            if (confirm('Are you sure you want to delete this order?')) {
+                try {
+                    const response = await fetch(`/api/orders/${orderId}`, { method: 'DELETE' });
+                    if (!response.ok) throw new Error('Failed to delete order');
+                    loadOrders();
+                } catch (error) {
+                    console.error('Error deleting order:', error.message);
+                }
+            }
+        }
+
+        window.onload = async () => {
+            await fetchUserProfile();
+            await loadOrders();
+        };
+    </script>
+</body>
+</html>
