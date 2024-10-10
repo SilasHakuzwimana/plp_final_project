@@ -22,13 +22,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+const port = process.env.DB_PORT  || 3000
 
 // Create connection to the database server
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'week_6_assignment'
+    host:                  process.env.DB_HOST,
+    user:                  process.env.DB_USER,
+    password:              process.env.DB_PASS,
+    database:              process.env.DB_NAME
 });
 
 // Connect to the database
@@ -1257,6 +1258,6 @@ app.get('/user-info', (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Server is running on port 3000.');
 });
