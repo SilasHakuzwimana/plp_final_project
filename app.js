@@ -13,6 +13,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const moment = require('moment-timezone');
 
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -57,10 +58,10 @@ app.use(cors({
 
 // Create connection to the database server
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: process.env.DB_NAME
+    host:               process.env.DB_HOST,
+    user:               process.env.DB_USER,
+    password:           process.env.DB_PASS,
+    database:           process.env.DB_NAME
 });
 
 // Connect to the database
@@ -1060,7 +1061,6 @@ app.post('/api/invoices', (req, res) => {
 
 // Report generation endpoint
 app.post('/generate-report', (req, res) => {
-
     const userData = req.session.user;
 
     if (!userData) {
@@ -1081,65 +1081,50 @@ app.post('/generate-report', (req, res) => {
         const pdfPath = `reports/all-report-${Date.now()}.pdf`;
         doc.pipe(fs.createWriteStream(pdfPath));
 
-        // Title
-        doc.fontSize(20).text('Comprehensive Report', { align: 'center' });
-        doc.moveDown();
+        // Add header
+        const addHeader = () => {
+            const logoPath = path.join(__dirname, 'images', 'MSME.jpg'); // Adjust logo path
+            const logoWidth = 100; // Set the width of the logo
+            const pageWidth = doc.page.width;
+            const logoX = (pageWidth - logoWidth) / 2; // Center the logo
 
-        // Customers Section
-        doc.fontSize(16).text('Customer Details', { underline: true });
-        if (customers.length > 0) {
-            customers.forEach(customer => {
-                doc.text(`Name: ${customer.name}`);
-                doc.text(`Email: ${customer.email}`);
-                doc.text(`Registered At: ${customer.created_at}`);
-                doc.moveDown();
-            });
-        } else {
-            doc.text('No customers found in the specified date range.');
-        }
-        doc.moveDown();
+            doc.image(logoPath, logoX, 20, { width: logoWidth });
+            doc.moveDown(4);
+            doc.fillColor('#3498db').fontSize(20).text('MSME Web App', { align: 'center' });
+            doc.moveDown(0.5);
+            const lineX = (pageWidth - 500) / 2; // Adjust line length
+            doc.moveTo(lineX, doc.y).lineTo(lineX + 500, doc.y).stroke('#3498db'); // Horizontal line
+            doc.moveDown(2)
+            doc.fillColor('#047013').fontSize(16).text('Comprehensive Report', { align: 'center' });
+            doc.moveDown(2);
+        };
 
-        // Orders Section
-        doc.fontSize(16).text('Order Details', { underline: true });
-        if (orders.length > 0) {
-            orders.forEach(order => {
-                doc.text(`Order ID: ${order.id}`);
-                doc.text(`Amount: ${order.amount}`);
-                doc.text(`Status: ${order.status}`);
-                doc.text(`Date: ${order.order_date}`);
-                doc.moveDown();
-            });
-        } else {
-            doc.text('No orders found in the specified date range.');
-        }
-        doc.moveDown();
+        // Add section with title and data
+        const addSection = (title, data) => {
+            doc.fillColor('#047013').fontSize(16).text(title, { underline: true, align: 'left' });
+            doc.moveDown(0.5);
+            if (data.length > 0) {
+                data.forEach(item => {
+                    Object.entries(item).forEach(([key, value]) => {
+                        doc.fillColor('black').fontSize(12).text(`${key}: ${value}`, { align: 'justify' });
+                    });
+                    doc.moveDown(0.5);
+                });
+            } else {
+                doc.text(`No ${title.toLowerCase()} found in the specified date range.`, { align: 'justify' });
+                doc.moveDown(0.5);
+            }
+            doc.moveDown(1);
+        };
 
-        // Invoices Section
-        doc.fontSize(16).text('Invoice Details', { underline: true });
-        if (invoices.length > 0) {
-            invoices.forEach(invoice => {
-                doc.text(`Invoice Number: ${invoice.number}`);
-                doc.text(`Amount: ${invoice.amount}`);
-                doc.text(`Date: ${invoice.invoice_date}`);
-                doc.moveDown();
-            });
-        } else {
-            doc.text('No invoices found in the specified date range.');
-        }
-        doc.moveDown();
+        // Add the header
+        addHeader();
 
-        // Inventory Section
-        doc.fontSize(16).text('Inventory Status', { underline: true });
-        if (inventory.length > 0) {
-            inventory.forEach(item => {
-                doc.text(`Item: ${item.name}`);
-                doc.text(`Quantity: ${item.quantity}`);
-                doc.text(`Added On: ${item.createdAt}`);
-                doc.moveDown();
-            });
-        } else {
-            doc.text('No inventory records found in the specified date range.');
-        }
+        // Add sections
+        addSection('Customer Details', customers);
+        addSection('Order Details', orders);
+        addSection('Invoice Details', invoices);
+        addSection('Inventory Status', inventory);
 
         // Finalize PDF
         doc.end();
@@ -1151,7 +1136,7 @@ app.post('/generate-report', (req, res) => {
         const queries = [
             { query: `SELECT * FROM customers WHERE created_at BETWEEN ? AND ?`, params: [startDate, endDate] },
             { query: `SELECT * FROM orders WHERE order_date BETWEEN ? AND ?`, params: [startDate, endDate] },
-            { query: `SELECT * FROM invoices WHERE invoice_date BETWEEN ? AND ?`, params: [startDate, endDate] },
+            { query: `SELECT * FROM invoices WHERE invoiceDate BETWEEN ? AND ?`, params: [startDate, endDate] },
             { query: `SELECT * FROM products WHERE createdAt BETWEEN ? AND ?`, params: [startDate, endDate] }
         ];
 
@@ -1221,22 +1206,70 @@ app.post('/generate-report', (req, res) => {
                 return res.status(500).json({ success: false, message: 'Error generating report' });
             }
 
+            res.setHeader('Content-disposition', 'attachment; filename=report.pdf');
+            res.setHeader('Content-type', 'application/pdf');
             const pdfPath = `reports/${reportType}-report.pdf`;
             const doc = new PDFDocument();
             doc.pipe(fs.createWriteStream(pdfPath));
 
-            doc.fontSize(20).text(`${reportType.charAt(0).toUpperCase() + reportType.slice(1)} Report`, { align: 'center' });
-            doc.moveDown();
+            // Add header
+            const addHeader = () => {
+                const logoPath = path.join(__dirname, 'images/MSME.jpg'); // Adjust the path to your logo file
+                const logoWidth = 100; // Set the width of the logo
+                const pageWidth = doc.page.width;
+                const logoX = (pageWidth - logoWidth) / 2; // Center the logo
 
-            results.forEach(item => {
+                doc.image(logoPath, logoX, 20, { width: logoWidth });
+                doc.moveDown(4);
+                doc.fillColor('#3498db').fontSize(14).text('MSME Web App', { align: 'center' });
+                doc.moveDown(0.5);
+                const lineWidth = pageWidth - 100; // Adjust line length
+                const lineX = (pageWidth - lineWidth) / 2; // Center the line
+                doc.moveTo(lineX, doc.y).lineTo(lineX + lineWidth, doc.y).stroke('#3498db');
+                doc.moveDown(1);
+                doc.fillColor('#047013').fontSize(16).text(`${reportType.charAt(0).toUpperCase() + reportType.slice(1)} Report`, { align: 'center' });
+                doc.moveDown(2);
+            };
+
+            addHeader(); // Add header to the document
+
+            let pageNumber = 1;
+            let maxHeight = doc.page.height - doc.page.margins.bottom - 50; // Space for footer and page number
+
+            results.forEach((item, index) => {
+                // Add report data
                 Object.entries(item).forEach(([key, value]) => {
-                    doc.text(`${key}: ${value}`);
+                    doc.fillColor('black').fontSize(12).text(`${key}: ${value}`, { align: 'justify' });
                 });
-                doc.moveDown();
+                doc.moveDown(1.5);
+                doc.moveDown(0.5);
+
+                // Check if a page break is needed
+                if (doc.y > maxHeight) {
+                    // Add footer with page number
+                    const footerText = `Page ${pageNumber} - Date of Generation: ${new Date().toLocaleString()} - Downloaded by: ${generator_name} (${generator_email})`;
+                    doc.fillColor('gray').fontSize(10).text(footerText, { align: 'center' });
+                    doc.moveDown(0.5);
+                    doc.text('Generated by MSME Web App', { align: 'center' });
+                    doc.addPage();
+                    pageNumber++;
+                    addHeader(); // Add header to the new page
+                }
             });
 
-            doc.end();
+            // Add footer to the last page
+            const footerY = doc.page.height - doc.page.margins.bottom; // Position for the footer line
+            const lineY = footerY - 20; // Y position for the horizontal line
 
+            // Draw the horizontal line for the footer
+            doc.moveTo(50, lineY).lineTo(doc.page.width - doc.page.margins.right, lineY).stroke('#3498db');
+            doc.moveDown(1.5);
+            const footerText = `Page ${pageNumber} - Date of Generation: ${new Date().toLocaleString()} - Downloaded by: ${generator_name} (${generator_email})`;
+            doc.fillColor('gray').fontSize(10).text(footerText, 50, footerY - 30, { align: 'center' });
+
+            // Ensure there's enough space before adding more content or the end of the page
+            doc.moveDown(0.5);
+            doc.end();
             const insertQuery = `
                 INSERT INTO report_generations (user_id, report_type, start_date, end_date, file_path)
                 VALUES (?, ?, ?, ?, ?)
