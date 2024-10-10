@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - MSME Web App</title>
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #0a58ca;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0a58ca;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #0a58ca;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004799;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="otp-section">
+        <h2>Verify OTP</h2>
+        <!-- OTP Input Form -->
+        <form id="otp-form">
+            <input type="text" id="otp" name="otp" placeholder="Enter 9-character OTP" maxlength="9" required>
+            <button type="submit">Verify OTP</button>
+        </form>
+        <p class="message">Please check your email for the OTP code.</p>
+    </div>
+
+    <script>
+        document.getElementById("otp-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = new URLSearchParams(window.location.search).get('email'); // Fetch email from URL
+            const otp = document.getElementById("otp").value.trim();
+
+            // Basic validation
+            if (!otp) {
+                alert('Please enter the OTP.');
+                return;
+            }
+
+            fetch('/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    // Redirect to the appropriate URL
+                    window.location.href = data.redirectUrl; // Use the redirect URL from the response
+                } else {
+                    alert(data.error || 'Invalid OTP, please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while verifying the OTP.');
+            });
+        })
+    </script>
+</body>
+</html>

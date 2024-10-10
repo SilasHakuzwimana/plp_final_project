@@ -111,7 +111,7 @@
 <body>
     <div class="login-container">
         <h1>Login</h1>
-        <form action="/login" method="POST">
+        <form id="login-form">
             <label for="email">Email</label>
             <div class="input-container">
                 <i class="fas fa-envelope" style="padding: 10px;"></i>
@@ -130,10 +130,11 @@
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="/register">Sign up here</a></p>
-        <p>Want to continue without logging in? <a href="http://localhost:5000">Go to Home</a></p>
+        <p>Don't remember password? <a href="/forgot">Forgot your password?</a></p>
+        <p>Not Want to continue with logging in? <a href="http://localhost:5000">Go to Home</a></p>
     </div>
     <footer>
-        <p>&copy; <span id="year"></span>  MSME Financial Management . All rights reserved.</p>
+        <p>&copy; <span id="year"></span>  MSME Web App. All rights reserved.</p>
     </footer>
     <script>
         // Get the current year and display it in the footer
@@ -152,6 +153,40 @@
                 eyeIcon.src = 'https://img.icons8.com/ios-filled/20/007bff/visible.png'; // Change back to eye icon
             }
         }
+
+        //form submission
+        document.getElementById("login-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+    
+            // Basic validation
+            if (!email || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+    
+            // Post login data to backend
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Login successful! OTP sent to your email.') {
+                    alert("OTP sent to your email. Please check and enter it.");
+                    // Redirect to OTP verification page
+                    window.location.href = `/verify-otp?email=${encodeURIComponent(email)}`;
+                } else {
+                    alert(data.error || 'Login failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your login.');
+            });
+        });
     </script>
 </body>
 </html>

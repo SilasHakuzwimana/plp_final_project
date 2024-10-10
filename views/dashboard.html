@@ -129,7 +129,7 @@
                 <li><a href="/invoice">Generate Invoice</a></li>
                 <li><a href="/customers-list">Customers</a></li>
                 <li><a href="/reports">Reports</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="#" id="logoutLink">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -139,8 +139,9 @@
         <div class="user-profile" id="userProfile">
             <img src="" alt="Profile Picture" id="profilePicture">
             <div>
-                <h2 id="userName"></h2>
-                <p id="userEmail"></p>
+                <h3>Names:<span id="userName"></span></h3>
+                <p>Email:<span id="userEmail"></span></p>
+                <p>Phone: <span id="userPhone"></span></p>
             </div>
         </div>
 
@@ -191,6 +192,7 @@
                 document.getElementById('profilePicture').src = user.profile_picture || '/default-profile.png';
                 document.getElementById('userName').textContent = user.name;
                 document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('userPhone').textContent = user.phone;
             } catch (error) {
                 console.error('Error fetching user profile:', error.message);
             }
@@ -198,6 +200,35 @@
 
         // Call the function when the page loads
         window.onload = fetchUserProfile;
+    </script>
+    <script>
+        document.getElementById('logoutLink').addEventListener('click', async () => {
+            try {
+              const response = await fetch('/logout', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+          
+              const result = await response.json();
+
+              if (response.ok) {
+                // Display the logout message (optional)
+                alert(result.message);
+
+                // Redirect to the login page
+                window.location.href = result.redirect;
+              } else {
+                // Handle error case
+                alert(result.error || 'Logout failed');
+              }
+            } catch (error) {
+              console.error('Error during logout:', error);
+              alert('An error occurred during logout. Please try again.');
+            }
+          });
+
     </script>
 </body>
 

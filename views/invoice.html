@@ -3,13 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Invoice</title>
+    <title>Generate Invoice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            margin: 0;
+            font-size: 40px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            color: #f8f9fa;
         }
         
         .section {
@@ -61,6 +98,17 @@
     </style>
 </head>
 <body>
+    <header>
+        <h1>Generate Invoice</h1>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/customers">Customers</a></li>
+                <li><a href="/reports">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
     <div id="invoice-creation" class="section">
         <h2>Create Invoice</h2>
         <form id="invoice-form">

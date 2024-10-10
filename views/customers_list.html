@@ -21,7 +21,7 @@
             margin: 0;
             font-size: 40px;
         }
-        
+
         nav {
             margin-top: 10px;
         }
@@ -85,6 +85,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Phone number</th>
                     <th>Role</th>
                     <th>Created At</th>
                 </tr>
@@ -114,6 +115,7 @@
                         <td>${customer.id}</td>
                         <td>${customer.name}</td>
                         <td>${customer.email}</td>
+                        <td>${customer.phone}</td>
                         <td>${customer.role}</td>
                         <td>${new Date(customer.created_at).toLocaleDateString()}</td>
                     `;

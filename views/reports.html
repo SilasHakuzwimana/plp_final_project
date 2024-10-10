@@ -5,36 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
         .reports-container {
             padding: 20px;
         }
-        
         form {
             display: flex;
             flex-direction: column;
         }
-        
         label {
             margin-bottom: 5px;
         }
-        
         input, select, button {
             padding: 10px;
             margin-bottom: 15px;
             font-size: 16px;
         }
-        
         button {
-            padding: 10px;
             background-color: #17a2b8;
             color: #fff;
             border: none;
             cursor: pointer;
         }
-        
         button:hover {
             background-color: #138496;
-        }        
+        }
+        #success-message {
+            display: none;
+            color: green;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -46,27 +73,71 @@
                 <li><a href="/inventory">Inventory</a></li>
                 <li><a href="/orders">Orders</a></li>
                 <li><a href="/customers">Customers</a></li>
-                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
-
     <div class="reports-container">
         <h2>Generate Reports</h2>
-        <form action="/generate-report" method="POST">
+        <form id="report-form">
             <label for="report-type">Report Type</label>
-            <select id="report-type" name="report-type">
-                <option value="sales">Sales</option>
+            <select id="report-type" name="reportType" required>
+                <option value="customers">Customers</option>
+                <option value="orders">Orders</option>
+                <option value="invoices">Invoices</option>
                 <option value="inventory">Inventory</option>
-                <option value="expenses">Expenses</option>
+                <option value="all">All in One</option>
             </select>
-            
             <label for="date-range">Select Date Range</label>
-            <input type="date" id="start-date" name="start-date" required>
-            <input type="date" id="end-date" name="end-date" required>
-            
+            <input type="date" id="start-date" name="startDate" required>
+            <input type="date" id="end-date" name="endDate" required>
             <button type="submit">Generate</button>
         </form>
+        <div id="success-message"></div>
     </div>
+    <script>
+        document.getElementById('report-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const reportType = document.getElementById('report-type').value;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Basic validation
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('End date must be later than start date.');
+                return;
+            }
+
+            // Create the request body
+            const requestBody = {
+                reportType: reportType,
+                startDate: startDate,
+                endDate: endDate
+            };
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/generate-report', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) { // Request is complete
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        if (data.success) {
+                            document.getElementById('success-message').innerText = data.message;
+                            document.getElementById('success-message').style.display = 'block';
+                        } else {
+                            alert(data.message); // Handle errors
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                        alert('An error occurred while processing the response.');
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify(requestBody));
+        });
+    </script>
 </body>
 </html>
