@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker App - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, h3, p, a {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body styles */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dashboard container styles */
+        .dashboard-container {
+            background-color: #fff;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 1400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        .dashboard-header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .dashboard-nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .dashboard-nav a:hover {
+            color: #f8f9fa;
+        }
+
+        /* Main content styles */
+        .dashboard-main {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Overview section */
+        .overview {
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .overview-content {
+            display: flex;
+            justify-content: 40px;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .summary-card h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .summary-card p {
+            font-size: 28px;
+            color: #007BFF;
+        }
+
+        /* Add icons to summary cards */
+        .summary-card i {
+            font-size: 48px;
+            color: #007BFF;
+            float: right;
+        }
+
+        /* Expense Actions section */
+        .expense-actions {
+            margin-top: 20px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .action-button i {
+            margin-right: 10px;
+        }
+
+        .action-button:hover {
+            background-color: #007BFF;
+        }
+
+        /* Form styles */
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-heading {
+            font-size: 24px;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer styles */
+        .dashboard-footer {
+            background-color: #007BFF;;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .edit-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: #81060c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #e1260a;
+        }
+        #month-range{
+            color: #007BFF;
+        }
+        #total-month-expenses{
+            color: #007BFF;
+        }
+        #remaining-amount{
+            color: #007BFF;
+        }
+        #budget-amount{
+            color: #007BFF;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1><i class="fas fa-chart-line"></i> Expense Tracker Dashboard</h1>
+            <nav class="dashboard-nav">
+                <a href="/expense" class="logout-button"><i class="fas fa-tasks"></i> Manage Expenses</a>
+                <a href="/logout" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </header>
+
+        <main class="dashboard-main">
+            <section class="overview">
+                <h2>Overview</h2>
+                <div class="overview-content">
+                    <div class="summary-card">
+                        <h3>Total Expenses</h3>
+                        <p id="total-expenses">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Expenses for this month (<span id="month-range"></span>)</h3>
+                        <p id="expenses-month">$0.00</p>
+                    </div>
+                    <div id="summary-card">
+                        <h3>Budget for this month: $<span id="budget-amount"></span></h3>
+                        <br>
+                        <h3>Total expenses for this month: $<span id="total-month-expenses"></span></h3>
+                        <br>
+                        <h3>Remaining amount: $<span id="remaining-amount"></span></h3>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="expense-actions">
+                <h2>Actions</h2>
+                <div class="actions">
+                    <a href="/expense" class="action-button"><i class="fas fa-plus"></i> Add Expense</a>
+                    <a href="/budget" class="action-button"><i class="fas fa-wallet"></i> Set Budget</a>
+                    <a href="/view-reports" class="action-button"><i class="fas fa-chart-pie"></i> View Reports</a>
+                </div>
+            </section>
+            <section class="chart-container">
+                <h2>Expense Data Visualization</h2>
+                <canvas id="expenses-chart" width="400" height="200"></canvas>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; <span id="year"></span> Expense Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and display expenses data (you might already have this part)
+            fetch('/expenses-summary')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('total-expenses').innerText = `$${data.totalExpenses}`;
+                        document.getElementById('expenses-month').innerText = `$${data.expensesThisMonth}`;
+                                    // Populate the month range in the HTML
+                        document.getElementById('month-range').innerText = `${data.currentMonth}: ${data.startOfMonth} - ${data.endOfMonth}`;
+                    } else {
+                        console.error('Failed to fetch expense data:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error fetching expenses data:', error));
+
+            const yearSpan = document.getElementById('year');
+            if (yearSpan) {
+                const currentYear = new Date().getFullYear();
+                yearSpan.textContent = currentYear;
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/remaining-amount')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Ensure data contains the values for budget, total expenses, and remaining amount
+                        document.getElementById('budget-amount').innerText = `$${data.budget.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                        document.getElementById('total-month-expenses').innerText = `$${data.totalExpensesMonth.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                        document.getElementById('remaining-amount').innerText = `$${data.remainingAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                    } else {
+                        console.error('Failed to fetch data:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/expenses-data')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        const labels = data.map(expense => {
+                            const dateObj = new Date(expense.date);
+                            return dateObj.toLocaleDateString('en-CA') || 'N/A';
+                        });
+        
+                        const amounts = data.map(expense => parseFloat(expense.amount));
+        
+                        // Create the chart
+                        const ctx = document.getElementById('expenses-chart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Expenses',
+                                    data: amounts,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    x:{
+                                        title: {
+                                        display:true,
+                                        text:'Date of The Month'
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display:true,
+                                            text: 'Expenses Per Date'
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        console.error('Unexpected data format:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching expenses data:', error));
+        });
+    </script>
+</body>
+
+</html>

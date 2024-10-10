@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker App - Manage Expenses</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .header, nav {
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .header a {
+            text-decoration: none;
+            padding: 5px;
+            margin: 5px;
+            color: white;
+        }
+
+        .header a:hover {
+            background-color: #007BFF;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .expenses {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .cta-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-heading {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+        .edit-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: #81060c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #e1260a;
+        }
+        /* Reset the select to ensure visibility */
+        #category {
+            color: black; /* Ensure text is visible */
+            background-color: white; /* Set background to white */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        /* Option styling */
+        #category option {
+            color: black;
+        }
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .search-expense {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Manage Expenses</h1>
+        <nav class="nav">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/budget">Budget</a>
+            <a href="/category">Category</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="expenses">
+            <h2 style="text-align: center;">Manage your Expenses in one place.</h2>
+            <button type="button" id="add-expense-btn" class="cta-button">Add New Expense</button>
+
+            <!-- Dynamic Form for Add/Edit Expense -->
+<!-- -- Category Selection with Option to Add New -->
+<div id="expense-form-container" class="form-container" style="display: none;">
+    <h2 class="form-heading">Add New Expense</h2>
+    <br>
+    <form id="expense-Form">
+        <label for="item_name">Expense Name</label><br>
+        <input type="text" id="item_name" name="item_name" class="form-input"  placeholder="Expense Name" required>
+        <br>
+        <br>
+        
+        <!-- Category Select -->
+        <label for="category">Category</label><br>
+        <select id="category" name="category" class="form-input" required>
+            <option value="" disabled selected>Select Category</option>
+        </select>
+        <br>
+        <br>
+        <label for="amount">Amount</label><br>
+        <input type="number" id="amount" name="amount" class="form-input" placeholder="Amount" required>
+        <br>
+        <br>
+        <label for="date">Date</label><br>
+        <input type="date" id="date" name="date" class="form-input"  placeholder="Date" required>
+        <br>
+        <br>
+        <label for="description">Description</label><br>
+        <textarea id="description" name="description" class="form-input"  placeholder="Type your expense description here......"></textarea>
+        <br>
+        <br>
+        <button type="submit" class="form-button">Add Expense</button>
+    </form>
+</div>
+<div class="search">
+    <input type="text" id="Search-expense" class="search-expense" placeholder="Search expense by name or ID" required>
+    <input type="submit" id="search-btn" class="search-btn" value="Search">
+</div>
+            <table id="expense-table">
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Category Name</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th colspan="2" style="text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, these should be dynamically added -->
+                    <tr>
+                        <td>Groceries</td>
+                        <td>$50.00</td>
+                        <td>2024-08-09</td>
+                        <td>Weekly groceries</td>
+                        <td><button type="button" class="edit-btn" data-id="1">Edit</button></td>
+                        <td><button type="button" class="delete-btn" data-id="1">Delete</button></td>
+                    </tr>
+                    <!-- More rows here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+<!-- Edit Expense Form -->
+<div id="edit-expense-form-container" class="form-container" style="display: none;">
+    <h2 class="form-heading">Edit Expense</h2>
+    <form id="edit-expense-form">
+        <input type="hidden" id="edit-expense-id" name="id">
+
+        <label for="item_name">Expense Name</label><br>
+        <input type="text" id="opt-item_name" name="item_name" class="form-input" placeholder="Expense Name" required>
+        <br>
+        <br>
+
+        <!-- Category Select -->
+        <label for="category">Category</label><br>
+        <select id="opt-category" name="category" class="form-input" required>
+            <option value="" disabled selected>Select Category</option>
+        </select>
+        <br>
+        <br>
+
+        <label for="amount">Amount</label><br>
+        <input type="number" id="opt-amount" name="amount" class="form-input" placeholder="Amount" required>
+        <br>
+        <br>
+
+        <label for="date">Date</label><br>
+        <input type="date" id="opt-date" name="date" class="form-input" placeholder="Date" required>
+        <br>
+        <br>
+
+        <label for="description">Description</label><br>
+        <textarea id="opt-description" name="description" class="form-input" placeholder="Type your expense description here......"></textarea>
+        <br>
+        <br>
+
+        <button type="submit" class="form-button" id="update-expense">Update Expense</button>
+        <br>
+        <button type="button" id="cancel-edit-btn" class="form-button">Cancel</button>
+    </form>
+</div>
+
+<script>
+    function showEditForm(expense) {
+        document.getElementById('edit-expense-form-container').style.display = 'block';
+
+        // Populate form fields with expense data
+        document.getElementById('edit-expense-id').value = expense.expense_id;
+        document.getElementById('opt-item_name').value = expense.item_name;
+        document.getElementById('opt-amount').value = expense.amount;
+        document.getElementById('opt-date').value = expense.date;
+        document.getElementById('opt-description').value = expense.description;
+
+        // Load categories and preselect the category
+        loadCategories(expense.category_id);
+    }
+
+    function loadCategories(selectedCategoryId = null) {
+        fetch('/get-categories')
+            .then(response => response.json())
+            .then(data => {
+                const categorySelect = document.getElementById('opt-category');
+                categorySelect.innerHTML = '<option value="" disabled selected>Select Category</option>'; // Clear existing options
+
+                if (data.categories && Array.isArray(data.categories)) {
+                    data.categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.category_id; // Use category_id for value
+                        option.textContent = cat.category_name; // Display category_name
+                        categorySelect.appendChild(option);
+                    });
+
+                    // After options are added, set the selected value
+                    if (selectedCategoryId) {
+                        categorySelect.value = selectedCategoryId;
+                    }
+                } else {
+                    console.error('Categories data is not in the expected format.');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading categories:', error);
+            });
+    }
+
+    // Handle form submission
+    document.getElementById('edit-expense-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(this);
+        const id = document.getElementById('edit-expense-id').value;
+
+        // Convert FormData to a plain object for easier handling
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        fetch(`/update-expense/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                item_name: data.item_name,
+                category: data.category, // Use category_id for submission
+                amount: parseFloat(data.amount), // Ensure amount is a number
+                date: data.date,
+                description: data.description
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+                document.getElementById('edit-expense-form-container').style.display = 'none';
+                window.location.reload(); // Reload the page to reflect changes
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the expense.');
+        });
+    });
+
+    // Handle cancel button click
+    document.getElementById('cancel-edit-btn').addEventListener('click', function() {
+        document.getElementById('edit-expense-form-container').style.display = 'none';
+    });
+</script>
+<script>
+        document.getElementById('add-expense-btn').addEventListener('click', function() {
+            var formContainer = document.getElementById('expense-Form');
+            if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                formContainer.style.display = 'block';
+            } else {
+                formContainer.style.display = 'none';
+            }
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchCategories(); // Fetch categories when the page loads
+        fetchExpenses();   // Fetch expenses when the page loads
+
+        document.getElementById('add-expense-btn').addEventListener('click', toggleExpenseForm);
+        document.getElementById('expense-Form').addEventListener('submit', handleAddExpense);
+        document.getElementById('search-btn').addEventListener('click', handleSearchExpense);
+    });
+
+    function toggleExpenseForm() {
+        var formContainer = document.getElementById('expense-form-container');
+        formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function fetchCategories() {
+        fetch('/get-categories')
+            .then(response => response.json())
+            .then(data => {
+                const categorySelect = document.getElementById('category');
+                categorySelect.innerHTML = '<option value="" disabled>Select Category</option>'; // Clear existing options
+
+                if (data.categories && Array.isArray(data.categories)) {
+                    data.categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.category_name;  // use category.name if backend sends category_name
+                        option.textContent = category.category_name;
+                        categorySelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Categories data is not in the expected format.');
+                }
+            })
+            .catch(error => console.error('Error fetching categories:', error));
+    }
+
+
+    function handleAddExpense(event) {
+        event.preventDefault();
+        const item_name = document.getElementById('item_name').value;
+        const category = document.getElementById('category').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        const date = document.getElementById('date').value;
+        const description = document.getElementById('description').value;
+    
+        fetch('/add-expense', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ item_name, category, amount, date, description }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message || 'Expense added successfully');
+            document.getElementById('expense-Form').reset();
+            document.getElementById('expense-form-container').style.display = 'none';
+            fetchExpenses(); // Refresh the list of expenses
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    
+    function fetchExpenses() {
+        fetch('/get-expenses')
+            .then(response => response.json())
+            .then(expenses => {
+                const tableBody = document.querySelector('#expense-table tbody');
+                tableBody.innerHTML = ''; // Clear existing rows
+    
+                expenses.forEach(expense => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${expense.item_name || 'N/A'}</td>
+                        <td>${expense.category_name || 'N/A'}</td>
+                        <td>$${parseFloat(expense.amount).toFixed(2) || 'N/A'}</td>
+                        <td>${new Date(expense.date).toLocaleDateString('en-CA') || 'N/A'}</td>
+                        <td>${expense.description || 'N/A'}</td>
+                        <td><button type="button" class="edit-btn" id="edit-btn" data-id="${expense.expense_id}">Edit</button></td>
+                        <td><button type="button" class="delete-btn" id="delete-btn" data-id="${expense.expense_id}">Delete</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+    
+                attachEditDeleteHandlers(); // Attach handlers after fetching expenses
+            })
+            .catch(error => console.error('Error fetching expenses:', error));
+    }
+
+    function attachEditDeleteHandlers() {
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                fetch(`/get-expense/${id}`)
+                    .then(response => response.json())
+                    .then(expense => showEditForm(expense))
+                    .catch(error => console.error('Error fetching expense:', error));
+            });
+        });
+    
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this expense?')) {
+                    fetch(`/delete-expense/${id}`, { method: 'DELETE' })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message || 'Expense deleted successfully');
+                            fetchExpenses(); // Refresh the list
+                        })
+                        .catch(error => console.error('Error deleting expense:', error));
+                }
+            });
+        });
+    }
+    
+    function handleSearchExpense() {
+        const searchTerm = document.getElementById('Search-expense').value.trim();
+        fetch(`/search-expense?search=${searchTerm}`)
+            .then(response => response.json())
+            .then(expenses => {
+                const tableBody = document.querySelector('#expense-table tbody');
+                tableBody.innerHTML = ''; // Clear existing content
+                expenses.forEach(expense => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${expense.item_name || 'N/A'}</td>
+                        <td>${expense.category_name || 'N/A'}</td>
+                        <td>$${parseFloat(expense.amount).toFixed(2) || 'N/A'}</td>
+                        <td>${new Date(expense.date).toISOString().split('T')[0] || 'N/A'}</td>
+                        <td>${expense.description || 'N/A'}</td>
+                        <td><button type="button" class="edit-btn" data-id="${expense.expense_id}">Edit</button></td>
+                        <td><button type="button" class="delete-btn" data-id="${expense.expense_id}">Delete</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+   </script>
+</body>
+</html>

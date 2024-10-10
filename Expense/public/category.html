@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker App - Manage Categories</title>
+    <style>
+        /* General Container Styles */
+        .dashboard-container {
+            background-color: #fff;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 1200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-button {
+            background-color: #dc3545;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 20px;
+        }
+
+        /* Categories Section */
+        .categories {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .categories h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Category List Styles */
+        .category-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-list p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Footer Styles */
+        .dashboard-footer {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #007BFF;
+        }
+
+        .modal-close:hover {
+            color: #0056b3;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .form-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+        table{
+            margin: 50px auto;
+            width: 100%;
+        }
+        th{
+            background-color: #007BFF;
+            color: white;
+        }
+        table,th,td{
+            border-collapse: collapse;
+            border: 1px solid #000;
+        }
+        th,td{
+            padding: 5px;
+        }
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .search-category {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ensure responsive design */
+        @media (max-width: 600px) {
+            .search-category {
+                width: 100%;
+            }
+    
+            .search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+    
+            .search-btn {
+                width: 100%;
+            }
+        }
+        .edit-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 70px;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: #81060c;
+            color: #fff;
+            text-align: center;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 70px;
+        }
+
+        .delete-btn:hover {
+            background-color: #e1260a;
+        }
+        /* Style for the modal container */
+        #edit-form-container.modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less depending on screen size */
+            max-width: 500px; /* Max width for larger screens */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Box shadow */
+            animation: fadeIn 0.3s ease; /* Fade in effect */
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        /* Close button */
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form styles */
+        #edit-category-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #edit-category-form label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #edit-category-form input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Buttons */
+        #edit-category-form button[type="submit"],
+        #edit-category-form button[type="button"] {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #edit-category-form button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #edit-category-form button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        #edit-category-form button[type="button"] {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        #edit-category-form button[type="button"]:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .modal-content {
+                width: 90%;
+                margin-top: 30%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <h1>Manage Categories</h1>
+            <nav class="nav">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/expense">Expenses</a>
+                <a href="/budget">Budget</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="categories">
+                <h2 style="text-align: center;">Manage your Categories with ease.</h2>
+                <button id="add-category-btn" class="cta-button">Add New Category</button>
+                <div class="category-list">
+                    <div class="search">
+                        <input type="text" id="search-category" class="search-category" placeholder="Search a category by name or ID">
+                        <input type="submit" id="search-btn" class="search-btn" value="Search">
+                    </div>
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <th>Category ID</th>
+                                <th>Category Name</th>
+                                <th colspan="2" style="text-align:center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of categories will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2024 Expense Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Modal for Adding Category -->
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Add New Category</h2>
+            <form id="add-category-form">
+                <input type="text" id="add-category_name" name="category_name" placeholder="Category Name" required class="form-input">
+                <button type="submit" class="form-button">Add Category</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Category Form -->
+    <div id="edit-form-container" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <form id="edit-category-form">
+                <input type="hidden" id="edit-category_id" name="category_id">
+                <label for="edit-category_name">Category Name:</label>
+                <input type="text" id="edit-category_name" name="category_name" required>
+                <button type="submit">Update Category</button>
+                <button type="button" id="cancel-edit">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            async function apiRequest(method, url, data = null) {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'An error occurred');
+                }
+                return response.json();
+            }
+
+            async function fetchCategories() {
+                try {
+                    const response = await apiRequest('GET', '/get-categories');
+                    const categories = response.categories;
+
+                    const tableBody = document.querySelector('#table tbody');
+                    tableBody.innerHTML = '';
+                    categories.forEach(category => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${category.category_id}</td>
+                            <td>${category.category_name}</td>
+                            <td><button class="edit-btn" data-id="${category.category_id}" data-name="${category.category_name}">Edit</button></td>
+                            <td><button class="delete-btn" data-id="${category.category_id}">Delete</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+
+                    // Attach event listeners for delete and edit buttons
+                    document.querySelectorAll('.delete-btn').forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const id = event.target.getAttribute('data-id');
+                            try {
+                                await apiRequest('DELETE', `/delete-category/${id}`);
+                                fetchCategories();
+                            } catch (error) {
+                                alert(error.message);
+                            }
+                        });
+                    });
+
+                    document.querySelectorAll('.edit-btn').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const categoryId = event.target.getAttribute('data-id');
+                            const categoryName = event.target.getAttribute('data-name');
+                            document.getElementById('edit-category_id').value = categoryId;
+                            document.getElementById('edit-category_name').value = categoryName;
+                            document.getElementById('edit-form-container').style.display = 'block';
+                        });
+                    });
+
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+            fetchCategories();
+
+            // Handle Edit Category Form Submission
+            document.getElementById('edit-category-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    category_name: formData.get('category_name')
+                };
+                const categoryId = formData.get('category_id');
+                try {
+                    const response = await apiRequest('PUT', `/update-category/${categoryId}`, data);
+                    alert(response.message);
+                    fetchCategories();
+                    document.getElementById('edit-form-container').style.display = 'none';
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+
+            // Handle Add Category Form Submission
+            document.getElementById('add-category-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    category_name: formData.get('category_name')
+                };
+                try {
+                    const response = await apiRequest('POST', '/add-category', data);
+                    alert(response.message);
+                    fetchCategories();
+                    document.getElementById('category-modal').style.display = 'none';
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+            // Handle Modal Open/Close
+            document.getElementById('add-category-btn').addEventListener('click', () => {
+                document.getElementById('category-modal').style.display = 'block';
+            });
+
+            document.querySelectorAll('.modal-close').forEach(closeButton => {
+                closeButton.addEventListener('click', () => {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                });
+            });
+
+            document.getElementById('cancel-edit').addEventListener('click', () => {
+                document.getElementById('edit-form-container').style.display = 'none';
+            });
+        });
+    </script>
+    <script>
+        // Handle Search Button Click
+        document.getElementById('search-btn').addEventListener('click', async () => {
+            const searchTerm = document.getElementById('search-category').value.trim();
+            try {
+                const response = await apiRequest('GET', `/search-category/${encodeURIComponent(searchTerm)}`);
+                const categories = response;
+    
+                const tableBody = document.querySelector('#table tbody');
+                tableBody.innerHTML = ''; // Clear previous results
+    
+                if (categories && Array.isArray(categories) && categories.length > 0) {
+                    categories.forEach(category => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${category.category_id}</td>
+                            <td>${category.category_name}</td>
+                            <td><button class="edit-btn" data-id="${category.category_id}" data-name="${category.category_name}">Edit</button></td>
+                            <td><button class="delete-btn" data-id="${category.category_id}">Delete</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="4">No categories found.</td>';
+                    tableBody.appendChild(row);
+                }
+    
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                alert('An error occurred while searching for categories. Please try again.');
+            }
+        });
+    
+        // Placeholder for the apiRequest function
+        async function apiRequest(method, url) {
+            const response = await fetch(url, { method });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracking App - Home</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, h3, p, a, cite {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Basic body styles */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            margin-top: 10px;
+        }
+
+        .nav a {
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #07509e;
+            color: #e0e0e0;
+        }
+
+        .nav-login {
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        .nav-login:hover {
+            background-color: #07509e;
+        }
+
+        /* Main content styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Features section */
+        .features {
+            background-color: #fff;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-item {
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Testimonials section */
+        .testimonials {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .testimonials h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial cite {
+            display: block;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Call-to-action section */
+        .cta {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cta h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1>Welcome to Expense Tracker</h1>
+            <nav class="nav">
+                <a href="http://localhost:5000">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/login" class="nav-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero">
+            <h2>Track Your Expenses Easily</h2>
+            <p>Manage your budget and expenses with ease using our app. Sign up or log in to get started.</p>
+            <a href="/login" class="cta-button">Get Started</a>
+        </section>
+
+        <section class="features">
+            <div class="features-container">
+                <h2>Features</h2>
+                <div class="feature-item">
+                    <h3>Comprehensive Expense Tracking</h3>
+                    <p>Track all your expenses in one place. Add, edit, and categorize expenses effortlessly.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Budget Management</h3>
+                    <p>Set and manage your budgets. Get notifications and insights to stay on track.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Data Visualization</h3>
+                    <p>Visualize your spending with charts and graphs to understand your financial habits.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Secure and Private</h3>
+                    <p>Your data is safe with us. We use advanced security measures to protect your information.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial">
+                <p>"This app has transformed the way I manage my finances. It's intuitive and easy to use!"</p>
+                <cite>- Alex Johnson</cite>
+            </div>
+            <div class="testimonial">
+                <p>"I love the budget management feature. It helps me stay on top of my expenses effortlessly."</p>
+                <cite>- Sarah Lee</cite>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Ready to Get Started?</h2>
+            <p>Join thousands of users who are already making their financial management easier. Sign up now to start tracking your expenses!</p>
+            <a href="/register" class="cta-button">Sign Up</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Expense Tracking App. All rights reserved.</p>
+    </footer>
+    <script>
+        const yearSpan = document.getElementById('year');
+        if (yearSpan) {
+            const currentYear = new Date().getFullYear();
+            yearSpan.textContent = currentYear;
+        }
+    </script>
+</body>
+
+</html>

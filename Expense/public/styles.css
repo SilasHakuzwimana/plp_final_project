@@ -1,0 +1,284 @@
+/* Reset some default styles */
+body, h1, h2, h3, input, button, textarea {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Global Styles */
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Container */
+.container, .form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    max-width: 100%;
+    margin: 20px;
+}
+
+/* Form Heading */
+.form-heading, h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Form Input Fields */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Form Submit Button */
+.form-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+/* Page Specific Styles */
+/* Landing Page */
+.hero {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.cta-button:hover {
+    background-color: #218838;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.dashboard-nav {
+    text-align: right;
+}
+
+.logout-button {
+    color: #fff;
+    background-color: #dc3545;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+/* Main Content */
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Overview Section */
+.overview {
+    margin-bottom: 20px;
+}
+
+.overview-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 48%;
+}
+
+.summary-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.summary-card p {
+    font-size: 24px;
+    color: #007BFF;
+}
+
+/* Expense Actions Section */
+.expense-actions {
+    margin-top: 20px;
+}
+
+.action-button {
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Styles */
+@media (max-width: 200px) {
+    .container, .form-container {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 300px) {
+    .form-input, .form-button, .cta-button {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container, .form-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    .container, .form-container {
+        width: 85%;
+    }
+}
+
+@media (max-width: 600px) {
+    .container, .form-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 700px) {
+    .dashboard-container {
+        padding: 15px;
+    }
+
+    .summary-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+
+    .dashboard-nav a {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 800px) {
+    /* Container styles for larger screens */
+    .container, .form-container {
+        width: 50%; /* Centered and more spacious container */
+        max-width: 600px; /* Ensures it doesn't get too wide on very large screens */
+    }
+
+    /* Form heading styles */
+    .form-heading, h1 {
+        font-size: 28px; /* Slightly larger heading for better visibility */
+    }
+
+    /* Dashboard header styles */
+    .dashboard-header {
+        padding: 30px; /* More padding for a spacious look */
+    }
+
+    .dashboard-header h1 {
+        font-size: 32px; /* Larger font size for the header */
+    }
+
+    /* Summary cards for larger screens */
+    .summary-card {
+        width: 30%; /* Adjust width for better layout on larger screens */
+        margin-bottom: 20px; /* Spacing between cards */
+    }
+
+    .overview-content {
+        flex-direction: row; /* Horizontal layout for large screens */
+        gap: 20px; /* Space between summary cards */
+    }
+
+    /* Navigation styles */
+    .dashboard-nav {
+        text-align: right;
+        font-size: 18px; /* Larger font size for navigation items */
+    }
+
+    /* Adjust button sizes for larger screens */
+    .form-button, .cta-button, .action-button {
+        font-size: 18px; /* Larger buttons for easier interaction */
+        padding: 15px; /* More padding for better click area */
+    }
+
+    /* General improvements */
+    body {
+        font-size: 18px; /* Larger base font size for readability */
+    }
+}

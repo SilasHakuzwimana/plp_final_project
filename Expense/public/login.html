@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker App - User Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .form-heading {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #007BFF;
+            font-size: 20px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+        .toggle-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #007BFF;
+            font-size: 20px;
+        }
+        .form-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+        .form-footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .form-link {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .form-link:hover {
+            text-decoration: underline;
+        }
+        .return {
+            display: inline-block;
+            padding: 5px 5px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .return:hover {
+            background-color: #0762c3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1 class="form-heading">Login</h1>
+        <form id="login-form">
+            <p class="return"><a href="javascript:void(0);" class="return" onclick="redirectToHome();"><i class="fas fa-home"></i>Home</a></p>
+            <div class="input-container">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" name="username" id="username" placeholder="Username" required class="form-input">
+            </div>
+            <div class="input-container password-container">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" name="password" id="password" placeholder="Password" required class="form-input">
+                <i class="fas fa-eye toggle-icon" id="togglePassword"></i>
+            </div>
+            <button type="submit" class="form-button">Login</button>
+            <p class="form-footer">Don't have an account? <a href="/register" class="form-link">Sign up here</a></p>
+            <p class="form-footer">Forgot your password? <a href="/forgot" class="form-link">Click here</a></p>
+            <p class="form-footer">Want to go back? <a href="http://localhost:3000/index" class="form-link">Go to Home</a></p>
+        </form>
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "/index";
+        }
+
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('OTP sent to your email.'); // Notify user
+                    window.location.href = '/otp-verification'; // Redirect to OTP page
+                } else {
+                    alert(result.message); // Show error message
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    </script>
+</body>
+
+</html>
