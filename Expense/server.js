@@ -24,7 +24,7 @@ app.use(session({
     saveUninitialized: false,
 }));
 app.use(cors())
-const port = process.env.DB_PORT  || 3000
+const port = process.env.PORT_1  || 3000
 
 // Create connection to the database server
 const connection = mysql.createConnection({
