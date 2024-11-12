@@ -11,6 +11,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const moment = require('moment-timezone');
 const crypto = require('crypto');
+const cors = require('cors')
 ;
 
 // Initialize the app
@@ -22,6 +23,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+app.use(cors())
 const port = process.env.DB_PORT  || 3000
 
 // Create connection to the database server
