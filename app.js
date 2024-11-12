@@ -27,6 +27,51 @@ app.use(express.static(path.join(__dirname, 'Expense/public')));
 
 app.get('/expenses', (req, res) => { res.sendFile(path.join(__dirname, 'Expense/public', 'index.html')); });
 
+app.get('/expenses', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public','index.html'));
+});
+app.get('/view-reports', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'expense_report.html'));
+});
+
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'contact.html'));
+});
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'about.html'));
+});
+app.get('/budget', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'budget.html'));
+});
+app.get('/category', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'category.html'));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public', 'register.html'));
+});
+app.get('/forgot', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public','forgot_password.html'));
+});
+app.get('/reset/:token', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public','reset_password.html'));
+});
+
+app.get('/otp-verification',(req, res) =>{
+    res.sendFile(path.join(__dirname,'Expense/public', 'otp_verification.html'));
+})
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public','dashboard.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Expense/public','login.html'));
+});
+app.get('/expense', (req, res) => {
+    res.sendFile(path.join(__dirname,'Expense/public', 'expense.html'));
+});
+
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
