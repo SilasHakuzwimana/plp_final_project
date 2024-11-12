@@ -50,11 +50,16 @@ app.use(express.static(__dirname));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from the Expense/public directory
+app.use(express.static(path.join(__dirname, 'PLP_FINAL_PROJECT/views')));
+
 // Define routes for static HTML pages
-app.get('', (req, res) => {
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views','views/index.html'));
+});
+app.get('/expenses', (req, res) => {
     res.sendFile(path.join(__dirname, 'public','index.html'));
 });
-
 app.get('/view-reports', (req, res) => {
     res.sendFile(path.join(__dirname,'public', 'expense_report.html'));
 });

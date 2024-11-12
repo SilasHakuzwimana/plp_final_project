@@ -20,7 +20,14 @@ const port = process.env.PORT || 3000;
 // Set default timezone to EAT (East Africa Time)
 moment.tz.setDefault("Africa/Kigali");
 
-app.get('', (req, res) => {
+// Serve static files from the Expense/public directory
+
+app.use(express.static(path.join(__dirname, 'Expense/public')));
+// Define a route for the home page
+
+app.get('/expenses', (req, res) => { res.sendFile(path.join(__dirname, 'Expense/public', 'index.html')); });
+
+app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
@@ -52,7 +59,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 app.use(cors({
-    origin: 'http://localhost:3000', // Change to your frontend URL
+    origin: '/expenses', // Change to your frontend URL
     credentials: true
 }));
 

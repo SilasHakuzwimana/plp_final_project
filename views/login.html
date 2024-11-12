@@ -131,7 +131,7 @@
         </form>
         <p>Don't have an account? <a href="/register">Sign up here</a></p>
         <p>Don't remember password? <a href="/forgot">Forgot your password?</a></p>
-        <p>Not Want to continue with logging in? <a href="http://localhost:5000">Go to Home</a></p>
+        <p>Not Want to continue with logging in? <a href="/index">Go to Home</a></p>
     </div>
     <footer>
         <p>&copy; <span id="year"></span>  MSME Web App. All rights reserved.</p>
@@ -187,6 +187,11 @@
                 alert('An error occurred while processing your login.');
             });
         });
+    </script>
+    <script>
+        function redirectToHome(){
+            window.location.href = "http://localhost:5000/index";
+        }
     </script>
 </body>
 </html>

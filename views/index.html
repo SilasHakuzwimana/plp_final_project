@@ -176,7 +176,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">Who We Are?</a></li>
                 <li><a href="#services">What We Offer?</a></li>
-                <li><a href="http://localhost:3000">Expense Tracking App</a></li>
+                <li><a href="javascript:void(0)" onclick="redirectToExpenses()">Expense Tracking App</a></li>
                 <li><a href="#partners">Partners</a></li>
                 <li><a href="/login">Login</a></li>
             </ul>
@@ -327,6 +327,11 @@
         // Get the current year and display it in the footer
         var year = new Date().getFullYear();
         document.getElementById("year").innerHTML = year;
+    </script>
+    <script>
+        function redirectToExpenses() {
+            window.location.href = "http://localhost:3000/expenses";
+        }
     </script>
 </body>
 </html>
