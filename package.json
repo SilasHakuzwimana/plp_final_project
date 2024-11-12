@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-   "start": "concurrently \"node Expense/server.js\" \"node app.js\"",
+    "start": "concurrently \"node Expense/server.js\" \"node app.js\"",
     "dev": "nodemon npm start"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
