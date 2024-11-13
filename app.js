@@ -20,6 +20,11 @@ const port = process.env.PORT || 3000;
 // Set default timezone to EAT (East Africa Time)
 moment.tz.setDefault("Africa/Kigali");
 
+// Redirect root URL to /index 
+app.get('/', (req, res) => { 
+    res.redirect('/index');
+ });
+
 // Serve static files from the Expense/public directory
 
 app.use(express.static(path.join(__dirname, 'Expense/public')));
