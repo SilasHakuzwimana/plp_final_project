@@ -1,0 +1,33 @@
+# Ignore node_modules directory
+node_modules/
+Expense/node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore compiled files
+*.class
+*.o
+*.so
+
+# Ignore OS-specific & other files
+.DS_Store
+Thumbs.db
+
+#inline folder
+Expense/public/.env
+Expense/.hintrc
+Expense/package.json
+Expense/package-lock.json
+*userdb.sql
+#outside folder
+.hintrc
+.env
+package.json
+package-lock.json
+
+#ingore some directory
+project SQL files/
+.dist/
+.vscode/
+.fetch-client
